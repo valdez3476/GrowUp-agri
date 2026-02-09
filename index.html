@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowUp</title>
+    <meta name="description" content="Transformez votre agriculture avec GrowUp. IA, gestion intelligente et marketplace intégrée pour les agriculteurs modernes.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.co">
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/Css/style.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <img src="assets/Images/logo.png" alt="GrowUp Logo">
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#temoignages">Témoignages</a></li>
+                    <li><a href="#contact" class="cta-button">Essai Gratuit</a></li>
+                    <li>
+                        <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+                            <i class="fas fa-moon"></i>
+                            <i class="fas fa-sun"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <div class="hero-text">
+                    <h1>L'agriculture intelligente commence ici</h1>
+                    <p>Transformez votre smartphone en centre de commande agricole avec IA. Alertes intelligentes, suivi technique, gestion financière et marketplace intégrée.</p>
+                    <a href="#contact" class="cta-button">
+                        <i class="fas fa-rocket"></i> Commencer gratuitement
+                    </a>
+                </div>
+                <div class="hero-image fade-in">
+                    <img src="assets/Images/Image collée (4).png" alt="Application GrowUp">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>+40%</h3>
+                    <p>Rendements améliorés</p>
+                </div>
+                <div class="stat-card fade-in">
+                    <i class="fas fa-clock"></i>
+                    <h3>30 min</h3>
+                    <p>Gestion quotidienne</p>
+                </div>
+                <div class="stat-card fade-in">
+                    <i class="fas fa-eye"></i>
+                    <h3>24/24</h3>
+                    <p>Surveillance automatique</p>
+                </div>
+                <div class="stat-card fade-in">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>×2</h3>
+                    <p>Marges multipliées</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section avec alternance -->
+    <section class="features" id="fonctionnalites">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Tout ce dont vous avez besoin pour réussir</h2>
+                <p>Arrêtez de gérer votre exploitation à l'aveugle ! Découvrez la différence avec GrowUp.</p>
+            </div>
+
+            <!-- Feature 1: Image à GAUCHE, texte à DROITE -->
+            <div class="feature-item fade-in">
+                <div class="feature-image left">
+                    <div class="image-badge">IA Agricole</div>
+                    <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"alt="Calendrier agricole intelligent" loading="lazy">
+                </div>
+                <div class="feature-content right">
+                    <h3>Calendrier Agricole Intelligent</h3>
+                    <p>Ne ratez plus jamais les bonnes périodes. Notre IA analyse les données météo en temps réel pour vous indiquer précisément quand semer, irriguer, fertiliser et récolter.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Alertes personnalisées par culture</li>
+                        <li><i class="fas fa-check-circle"></i> Analyse météo en temps réel</li>
+                        <li><i class="fas fa-check-circle"></i> Recommandations adaptées à votre sol</li>
+                    </ul>
+                    <a href="#" class="cta-button">
+                        <i class="fas fa-play-circle"></i> Voir la démo
+                    </a>
+                </div>
+            </div>
+
+            <!-- Feature 2: Texte à GAUCHE, image à DROITE -->
+            <div class="feature-item fade-in">
+                <div class="feature-content left">
+                    <h3>Gestion Financière Précise</h3>
+                    <p>Enregistrez facilement toutes vos dépenses et ventes. GrowUp calcule automatiquement votre rentabilité par culture. Fini les surprises en fin de saison.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Suivi des dépenses et revenus</li>
+                        <li><i class="fas fa-check-circle"></i> Rentabilité par culture calculée</li>
+                        <li><i class="fas fa-check-circle"></i> Rapports financiers détaillés</li>
+                    </ul>
+                    <a href="#" class="cta-button">
+                        <i class="fas fa-chart-pie"></i> Explorer les analyses
+                    </a>
+                </div>
+                <div class="feature-image right">
+                    <div class="image-badge">Finance</div>
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2011&q=80" alt="Gestion financière agricole" loading="lazy">
+                </div>
+            </div>
+
+            <!-- Feature 3: Image à GAUCHE, texte à DROITE -->
+            <div class="feature-item fade-in">
+                <div class="feature-image left">
+                    <div class="image-badge">Alertes</div>
+                    <img src="https://plus.unsplash.com/premium_photo-1682310096066-20c267e20605?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YWxlcnRlJTIwaW50ZWxsaWdlbnRlfGVufDB8fDB8fHww" alt="Alertes intelligentes" alt="Alertes intelligentes" loading="lazy">
+                </div>
+                <div class="feature-content right">
+                    <h3>Alertes Automatiques Intelligentes</h3>
+                    <p>Suivez vos stocks en temps réel. GrowUp vous alerte automatiquement quand vos stocks baissent et qu'une période de semis approche.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Surveillance des stocks 24/7</li>
+                        <li><i class="fas fa-check-circle"></i> Alertes de réapprovisionnement</li>
+                        <li><i class="fas fa-check-circle"></i> Notifications de maladies des plantes</li>
+                    </ul>
+                    <a href="#" class="cta-button">
+                        <i class="fas fa-bell"></i> Configurer les alertes
+                    </a>
+                </div>
+            </div>
+
+            <!-- Feature 4: Texte à GAUCHE, image à DROITE -->
+            <div class="feature-item fade-in">
+                <div class="feature-content left">
+                    <h3>Assistant IA 24h/24</h3>
+                    <p>Prenez une photo d'une plante malade et obtenez un diagnostic instantané. Posez n'importe quelle question agricole à notre assistant IA.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Diagnostic par photo</li>
+                        <li><i class="fas fa-check-circle"></i> Réponses instantanées</li>
+                        <li><i class="fas fa-check-circle"></i> Recommandations de traitements</li>
+                    </ul>
+                    <a href="#" class="cta-button">
+                        <i class="fas fa-robot"></i> Tester l'assistant IA
+                    </a>
+                </div>
+                <div class="feature-image right">
+                    <div class="image-badge">IA</div>
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Assistant IA agricole" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Carousel -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Comment GrowUp vous accompagne ?</h2>
+                <p>Bien plus qu'une simple application. Votre équipe technique virtuelle qui travaille pour vous 24h/24.</p>
+            </div>
+
+            <div class="carousel-container fade-in">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-slide">
+                        <img src="assets/Images/Image collée (2).png" alt="Surveillance des cultures" loading="lazy">
+                        <h3>Nous surveillons vos cultures pendant que vous dormez</h3>
+                        <p>GrowUp surveille en permanence vos cultures et vos stocks. Soyez prévenus avant les problèmes.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/Images/Image collée (5).png" alt="Optimisation des prix" loading="lazy">
+                        <h3>Meilleurs prix garantis</h3>
+                        <p>GrowUp compare tous les vendeurs et vous recommande le meilleur rapport qualité-prix pour vos intrants.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/Images/Image collée (4).png" alt="Formation agricole" loading="lazy">
+                        <h3>Apprenez de nouvelles techniques</h3>
+                        <p>Accédez à des formations, apprenez de nouvelles techniques et connectez-vous avec des experts agricoles.</p>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="carouselDots">
+                    <span class="carousel-dot active"></span>
+                    <span class="carousel-dot"></span>
+                    <span class="carousel-dot"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="temoignages">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Ils ont transformé leur agriculture</h2>
+                <p>Découvrez les retours d'expérience d'agriculteurs qui utilisent GrowUp au quotidien.</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <blockquote>
+                        "Avant GrowUp, je perdais au moins 30% de mes récoltes chaque année. Les alertes météo et le calendrier intelligent m'ont sauvé. Cette saison, j'ai augmenté mon rendement de 45%."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AD</div>
+                        <div class="author-info">
+                            <h4>Amadou Diallo</h4>
+                            <span>Cultivateur de riz, 5 hectares • 8 mois d'utilisation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <blockquote>
+                        "Je pensais que je gagnais de l'argent, mais GrowUp m'a montré la réalité. Maintenant je sais exactement où va chaque franc. J'ai réduit mes dépenses inutiles de 40%."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">FK</div>
+                        <div class="author-info">
+                            <h4>Fatou Koné</h4>
+                            <span>Maraîchère, 2 hectares • 6 mois d'utilisation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <blockquote>
+                        "Le marketplace a changé ma vie. Je vends directement aux chocolatiers sans intermédiaires. Mes marges ont triplé. L'IA m'aide aussi à trouver les meilleurs prix."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">KM</div>
+                        <div class="author-info">
+                            <h4>Kwame Mensah</h4>
+                            <span>Producteur de cacao, 8 hectares • 1 an d'utilisation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2>Prêt à transformer votre agriculture ?</h2>
+                <p>Rejoignez les 10,000+ agriculteurs qui cultivent plus intelligemment avec GrowUp. Essayez gratuitement pendant 14 jours.</p>
+                <a href="#" class="cta-button secondary">
+                    <i class="fas fa-user-plus"></i> S'enregistrer gratuitement
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/Images/logo.png" alt="GrowUp Logo" loading="lazy">
+                    <p>L'application mobile complète qui révolutionne la gestion agricole en Afrique et dans le monde.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Produit</h3>
+                    <ul class="footer-links">
+                        <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#">Tarifs</a></li>
+                        <li><a href="#">Télécharger l'app</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Entreprise</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">À propos</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Carrières</a></li>
+                        <li><a href="#">Presse</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Centre d'aide</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">CGU</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 GrowUp. Tous droits réservés. | contact@growup-agri.com | +237 6 74 24 12 378</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Retour en haut">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="assets/Js/script.js"></script>
+</body>
+</html>

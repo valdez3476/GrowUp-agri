@@ -1,0 +1,625 @@
+/* ... (Le CSS précédent reste inchangé jusqu'à la section Hero) ... */
+
+/* Hero Section avec Video Agricole Tech */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 120px 0 80px;
+    color: white;
+}
+
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6) contrast(1.1);
+    animation: videoFadeIn 2s ease-out;
+}
+
+@keyframes videoFadeIn {
+    from {
+        opacity: 0;
+        filter: brightness(0.4) contrast(1.1) blur(5px);
+    }
+    to {
+        opacity: 1;
+        filter: brightness(0.6) contrast(1.1) blur(0);
+    }
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(22, 101, 52, 0.85) 0%,
+        rgba(5, 46, 22, 0.95) 100%
+    );
+}
+
+/* Floating UI Elements */
+.floating-ui {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 2;
+    animation: floatAnimation 6s ease-in-out infinite;
+}
+
+@keyframes floatAnimation {
+    0%, 100% {
+        transform: translateY(-50%) translateY(0);
+    }
+    50% {
+        transform: translateY(-50%) translateY(-10px);
+    }
+}
+
+.ui-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 200px;
+    transform: translateX(-100%);
+    animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.ui-card-2 {
+    animation-delay: 0.3s;
+}
+
+.ui-card-3 {
+    animation-delay: 0.6s;
+}
+
+@keyframes slideInLeft {
+    to {
+        transform: translateX(0);
+    }
+}
+
+.ui-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-400), var(--primary-600));
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.ui-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.ui-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+}
+
+.ui-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 2px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.hero-text {
+    max-width: 600px;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        background: rgba(255, 255, 255, 0.15);
+    }
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: white;
+}
+
+.highlight {
+    background: linear-gradient(135deg, var(--primary-400), var(--primary-600));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+}
+
+.highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-400), var(--primary-600));
+    border-radius: var(--radius-full);
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 32px;
+}
+
+/* Problem Solution Cards */
+.problem-solution {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin: 32px 0 40px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.problem-card, .solution-card {
+    flex: 1;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.problem-card {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.solution-card {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+    border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.problem-header, .solution-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.problem-header i {
+    color: #ef4444;
+    font-size: 1.25rem;
+}
+
+.solution-header i {
+    color: #22c55e;
+    font-size: 1.25rem;
+}
+
+.problem-header h4, .solution-header h4 {
+    font-size: 1rem;
+    color: white;
+    margin: 0;
+}
+
+.problem-card p, .solution-card p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 12px 0;
+    font-size: 0.95rem;
+}
+
+.problem-tag, .solution-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.problem-tag {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+}
+
+.solution-tag {
+    background: rgba(34, 197, 94, 0.2);
+    color: #86efac;
+}
+
+.solution-arrow {
+    color: var(--primary-400);
+    font-size: 1.5rem;
+    animation: arrowPulse 1.5s infinite;
+}
+
+@keyframes arrowPulse {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+}
+
+.hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* App Preview */
+.app-preview {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.phone-mockup {
+    position: relative;
+    width: 300px;
+    height: 600px;
+    perspective: 1000px;
+}
+
+.phone-frame {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1f2c, #2d3748);
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: phoneFloat 6s ease-in-out infinite;
+    transform-style: preserve-3d;
+}
+
+@keyframes phoneFloat {
+    0%, 100% {
+        transform: translateY(0) rotateY(0deg);
+    }
+    33% {
+        transform: translateY(-10px) rotateY(5deg);
+    }
+    66% {
+        transform: translateY(-5px) rotateY(-5deg);
+    }
+}
+
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+}
+
+.app-screen {
+    width: 100%;
+    height: 100%;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.app-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-400);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.app-logo i {
+    font-size: 1.5rem;
+}
+
+.app-time {
+    color: #94a3b8;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.app-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.app-alert {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: alertPulse 2s infinite;
+}
+
+@keyframes alertPulse {
+    0%, 100% {
+        border-color: rgba(239, 68, 68, 0.2);
+    }
+    50% {
+        border-color: rgba(239, 68, 68, 0.4);
+    }
+}
+
+.app-alert i {
+    color: #ef4444;
+    font-size: 1.25rem;
+}
+
+.app-alert h5 {
+    color: white;
+    margin: 0 0 4px 0;
+    font-size: 0.95rem;
+}
+
+.app-alert p {
+    color: #94a3b8;
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.app-stats {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+}
+
+.app-stat {
+    margin-bottom: 16px;
+}
+
+.app-stat:last-child {
+    margin-bottom: 0;
+}
+
+.stat-label {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.875rem;
+    margin-bottom: 8px;
+}
+
+.stat-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+
+.stat-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-500), var(--primary-700));
+    border-radius: var(--radius-full);
+    transition: width 1s ease-out;
+}
+
+.stat-value {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    float: right;
+}
+
+.app-button {
+    background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: auto;
+}
+
+.app-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(34, 197, 94, 0.2);
+}
+
+.app-badge {
+    margin-top: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    padding: 8px 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.app-badge i {
+    color: #fbbf24;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.875rem;
+}
+
+.scroll-line {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--primary-400), transparent);
+    animation: scrollLine 2s infinite;
+}
+
+@keyframes scrollLine {
+    0%, 100% {
+        height: 40px;
+        opacity: 1;
+    }
+    50% {
+        height: 60px;
+        opacity: 0.5;
+    }
+}
+
+/* ... (Le reste du CSS reste inchangé) ... */
+
+/* Responsive Design pour la nouvelle Hero */
+@media (max-width: 1024px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        text-align: center;
+    }
+    
+    .hero-text {
+        max-width: 100%;
+    }
+    
+    .floating-ui {
+        left: 5%;
+        display: none; /* Cacher sur tablette */
+    }
+    
+    .problem-solution {
+        flex-direction: column;
+        text-align: left;
+    }
+    
+    .solution-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .floating-ui {
+        display: none; /* Cacher sur mobile */
+    }
+    
+    .phone-mockup {
+        width: 250px;
+        height: 500px;
+    }
+    
+    .app-preview {
+        transform: scale(0.9);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-description {
+        font-size: 1.125rem;
+    }
+    
+    .hero-cta {
+        flex-direction: column;
+    }
+    
+    .phone-mockup {
+        width: 220px;
+        height: 440px;
+    }
+    
+    .app-preview {
+        transform: scale(0.8);
+    }
+}
