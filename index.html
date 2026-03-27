@@ -1,370 +1,933 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GrowUp</title>
-    <meta name="description" content="Transformez votre agriculture avec GrowUp. IA, gestion intelligente et marketplace intégrée pour les agriculteurs modernes.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.co">
-    <!-- CSS -->
-    <link rel="stylesheet" href="assets/Css/style.css">
-    
-    <!-- Fonts -->
+    <title>GrowUp - L'agriculture intelligente</title>
+    <meta name="description" content="Simplifiez la gestion de votre exploitation agricole avec GrowUp.">
+
+    <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #7cb342;
+            --primary-light: #9ccc65;
+            --accent: #2d8b2d;
+            --accent-bright: #1a5f1a;
+            --gray-50: #f8f9fa;
+            --gray-100: #f2f2f2;
+            --gray-200: #e6e6e6;
+            --gray-300: #cccccc;
+            --gray-600: #666666;
+            --gray-800: #333333;
+            --gray-900: #1a1a1a;
+            --white: #ffffff;
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+            --container-max: 1280px;
+            --container-padding: 2rem;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--gray-800);
+            background-color: var(--white);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.2; }
+        h2 { font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: var(--space-md); color: var(--gray-900); }
+        h3 { font-size: 1.5rem; margin-bottom: var(--space-sm); color: var(--gray-900); }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+        .section-title p {
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--gray-600);
+        }
+
+        /* ========== HEADER ========== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray-200);
+            z-index: 100;
+            padding: 0.75rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            width: 120px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--gray-800);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray-800);
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            nav {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                border-bottom: 1px solid var(--gray-200);
+                padding: var(--space-md);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s;
+            }
+            nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            nav ul { flex-direction: column; gap: var(--space-sm); }
+        }
+
+        /* ========== HERO AVEC IMAGE EN PLEIN ÉCRAN ========== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            margin-top: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Image de fond qui occupe tout l'espace */
+        .hero-background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        /* Overlay sombre pour améliorer la lisibilité du texte */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Points verts décoratifs */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(124, 179, 66, 0.25) 2px, transparent 2px);
+            background-size: 50px 50px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-container {
+            position: relative;
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+            width: 100%;
+            z-index: 2;
+        }
+
+        /* Carte positionnée à la jonction entre hero et section suivante */
+        .hero-card {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 650px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            padding: 2.5rem 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-card:hover {
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .hero-card h1 {
+            color: var(--accent-bright);
+            margin-bottom: var(--space-sm);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+        }
+
+        .hero-card p {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        /* Bouton avec effet d'onde */
+        .cta-button {
+            position: relative;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-bright);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 179, 66, 0.4);
+        }
+
+        @keyframes pulse-wave {
+            0% { box-shadow: 0 0 0 0 rgba(124, 179, 66, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(124, 179, 66, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(124, 179, 66, 0); }
+        }
+
+        .cta-button {
+            animation: pulse-wave 2s infinite;
+        }
+
+        /* ========== SECTION TEXTE CENTRÉ - avec marge pour accueillir la carte ========== */
+        .intro-text {
+            padding-top: 100px;
+            padding-bottom: var(--space-xl);
+            background: var(--white);
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        .intro-text h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--accent-bright);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+        
+        .intro-text p {
+            font-size: 1.2rem;
+            color: var(--gray-600);
+            max-width: 700px;
+            margin: 1rem auto 0;
+        }
+
+        /* ========== STATS ========== */
+        .stats {
+            padding: var(--space-lg) 0;
+            background: var(--gray-50);
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            background: linear-gradient(135deg, var(--accent-bright), var(--primary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .stat-item p { 
+            font-size: 1.2rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        /* ========== FEATURES ========== */
+        .features {
+            padding: var(--space-lg) 0;
+            background: var(--white);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+        .feature-item:nth-child(even) { flex-direction: row-reverse; }
+        .feature-content { flex: 1; }
+        .feature-content p { color: var(--gray-600); }
+        .feature-content ul {
+            list-style: none;
+            margin: var(--space-md) 0;
+        }
+        .feature-content li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--gray-800);
+        }
+        .feature-content i { color: var(--primary); width: 1.25rem; }
+        .feature-image { flex: 1; position: relative; }
+        .feature-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-md);
+        }
+        .image-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 968px) {
+            .hero-card {
+                bottom: -60px;
+                width: 95%;
+                padding: 1.5rem;
+            }
+            .intro-text {
+                padding-top: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .feature-item, .feature-item:nth-child(even) { flex-direction: column; }
+            .hero-card {
+                bottom: -40px;
+                padding: 1.2rem;
+            }
+            .hero-card h1 { font-size: 1.5rem; }
+            .intro-text {
+                padding-top: 60px;
+            }
+            .intro-text h2 { font-size: 2rem; }
+            .intro-text p { font-size: 1rem; }
+            .stat-item h3 { font-size: 2.5rem; }
+        }
+
+        /* ========== SERVICES (CAROUSEL) ========== */
+        .services {
+            padding: var(--space-lg) 0;
+            background: var(--gray-50);
+        }
+
+        .carousel-container {
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            padding: var(--space-md);
+            text-align: center;
+            background: var(--white);
+            border-radius: 1rem;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 0.75rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .carousel-slide p { color: var(--gray-600); }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: var(--space-sm);
+        }
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .carousel-dot.active { 
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* ========== TEMOIGNAGES ========== */
+        .testimonials {
+            padding: var(--space-lg) 0;
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: var(--space-md);
+            border-radius: 1rem;
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .stars { color: #ffc107; margin-bottom: var(--space-sm); font-size: 1.1rem; }
+        blockquote {
+            color: var(--gray-800);
+            margin-bottom: var(--space-md);
+            font-style: italic;
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        .author-info h4 { font-size: 1rem; margin-bottom: 0.2rem; color: var(--gray-900); }
+        .author-info span { font-size: 0.85rem; color: var(--gray-600); }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            padding: var(--space-lg) 0;
+            background: var(--accent-bright);
+            color: white;
+            text-align: center;
+        }
+        .cta-section h2, .cta-section p { color: white; }
+        .cta-section p { margin: var(--space-sm) auto var(--space-md); }
+        .cta-button.secondary {
+            background: white;
+            color: var(--accent-bright);
+        }
+        .cta-button.secondary:hover { background: var(--gray-100); transform: translateY(-2px); }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--gray-900);
+            color: var(--gray-300);
+            padding: var(--space-lg) 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: var(--space-sm);
+            filter: brightness(0) invert(1);
+        }
+        .footer-logo p { color: var(--gray-400); margin-bottom: var(--space-sm); }
+
+        .social-links {
+            display: flex;
+            gap: var(--space-sm);
+        }
+        .social-links a {
+            color: var(--gray-300);
+            font-size: 1.2rem;
+            transition: color 0.2s;
+        }
+        .social-links a:hover { color: white; }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: var(--space-sm);
+            font-size: 1rem;
+        }
+
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 0.5rem; }
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: white; }
+
+        .copyright {
+            text-align: center;
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--gray-700);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .social-links { justify-content: center; }
+        }
+
+        /* ========== BACK TO TOP ========== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 44px;
+            height: 44px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            z-index: 99;
+        }
+        .back-to-top:hover { 
+            background: var(--accent-bright);
+            transform: translateY(-3px);
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header id="header">
-        <div class="container header-content">
-            <a href="#" class="logo">
-                <img src="assets/Images/logo.png" alt="GrowUp Logo">
-            </a>
-            
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <nav id="mainNav">
+
+<!-- ========== HEADER ========== -->
+<header>
+    <div class="container header-content">
+        <a href="#" class="logo">
+            <img src="assets/Images/logo.png" alt="GrowUp" onerror="this.src='https://placehold.co/120x32?text=GrowUp'">
+        </a>
+        
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <nav id="mainNav">
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#temoignages">Témoignages</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ========== HERO AVEC IMAGE EN PLEIN ÉCRAN ========== -->
+<section class="hero" id="accueil">
+    <!-- Image de fond qui occupe tout l'espace -->
+    <img src="assets/Images/image_hero.png" alt="Agriculture moderne" class="hero-background-image" onerror="this.src='https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&auto=format'">
+    
+    <div class="hero-container">
+        <!-- Carte positionnée à la jonction entre hero et section suivante -->
+        <div class="hero-card">
+            <h1>L'agriculture intelligente commence ici</h1>
+            <p>Des solutions innovantes pour optimiser vos rendements et simplifier votre quotidien.</p>
+            <a href="#" class="cta-button">Découvrir</a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SECTION TEXTE CENTRÉ (juste après la carte) ========== -->
+<section class="intro-text">
+    <div class="container">
+        <h2>BIENVENUE SUR GROWUP</h2>
+        <p>De petit agriculteur à entrepreneur agricole prospère. GrowUp transforme votre quotidien avec des solutions innovantes et accessibles.</p>
+    </div>
+</section>
+
+<!-- ========== STATS ========== -->
+<section class="stats">
+    <div class="container stats-grid">
+        <div class="stat-item">
+            <h3>+40%</h3>
+            <p>Rendement moyen</p>
+        </div>
+        <div class="stat-item">
+            <h3>30 min</h3>
+            <p>Temps de gestion/jour</p>
+        </div>
+        <div class="stat-item">
+            <h3>24/7</h3>
+            <p>Surveillance</p>
+        </div>
+        <div class="stat-item">
+            <h3>x2</h3>
+            <p>Marge bénéficiaire</p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FEATURES ========== -->
+<section class="features" id="fonctionnalites">
+    <div class="container">
+        <div class="section-title">
+            <h2>Des outils pour chaque besoin</h2>
+            <p>Simplifiez votre quotidien avec des fonctionnalités pensées pour le terrain.</p>
+        </div>
+
+        <div class="feature-item">
+            <div class="feature-content">
+                <h3>Calendrier intelligent</h3>
+                <p>Sachez précisément quand semer, irriguer ou récolter grâce aux données météo et agronomiques.</p>
                 <ul>
-                    <li><a href="#accueil">Accueil</a></li>
-                    <li><a href="#fonctionnalites">Fonctionnalités</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#temoignages">Témoignages</a></li>
-                    <li><a href="#contact" class="cta-button">Essai Gratuit</a></li>
-                    <li>
-                        <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
-                            <i class="fas fa-moon"></i>
-                            <i class="fas fa-sun"></i>
-                        </button>
-                    </li>
+                    <li><i class="fas fa-check-circle"></i> Alertes personnalisées</li>
+                    <li><i class="fas fa-check-circle"></i> Analyse en temps réel</li>
+                    <li><i class="fas fa-check-circle"></i> Conseils experts</li>
                 </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="accueil">
-        <div class="container">
-            <div class="hero-content fade-in">
-                <div class="hero-text">
-                    <h1>L'agriculture intelligente commence ici</h1>
-                    <p>Transformez votre smartphone en centre de commande agricole avec IA. Alertes intelligentes, suivi technique, gestion financière et marketplace intégrée.</p>
-                    <a href="#contact" class="cta-button">
-                        <i class="fas fa-rocket"></i> Commencer gratuitement
-                    </a>
-                </div>
-                <div class="hero-image fade-in">
-                    <img src="assets/Images/Image collée (4).png" alt="Application GrowUp">
-                </div>
+                <a href="#" class="cta-button">En savoir plus</a>
+            </div>
+            <div class="feature-image">
+                <span class="image-badge">IA</span>
+                <img src="https://media.istockphoto.com/id/859642934/fr/photo/main-marquant-une-journ%C3%A9e-unique-avec-une-coche-verte-apr%C3%A8s-les-mauvais-jours-severeal.webp?a=1&b=1&s=612x612&w=0&k=20&c=WTk627trv4ZBsXT-X6QLTmRWfziYpddWgwjU0w5ZUxI=" alt="Calendrier" loading="lazy">
             </div>
         </div>
-    </section>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card fade-in">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>+40%</h3>
-                    <p>Rendements améliorés</p>
-                </div>
-                <div class="stat-card fade-in">
-                    <i class="fas fa-clock"></i>
-                    <h3>30 min</h3>
-                    <p>Gestion quotidienne</p>
-                </div>
-                <div class="stat-card fade-in">
-                    <i class="fas fa-eye"></i>
-                    <h3>24/24</h3>
-                    <p>Surveillance automatique</p>
-                </div>
-                <div class="stat-card fade-in">
-                    <i class="fas fa-money-bill-wave"></i>
-                    <h3>×2</h3>
-                    <p>Marges multipliées</p>
-                </div>
+        <div class="feature-item">
+            <div class="feature-content">
+                <h3>Gestion financière</h3>
+                <p>Suivez vos dépenses et ventes, calculez votre rentabilité par culture et prenez les bonnes décisions.</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Comptabilité simplifiée</li>
+                    <li><i class="fas fa-check-circle"></i> Rapports détaillés</li>
+                    <li><i class="fas fa-check-circle"></i> Prévisions budgétaires</li>
+                </ul>
+                <a href="#" class="cta-button">Explorer</a>
+            </div>
+            <div class="feature-image">
+                <span class="image-badge">Finance</span>
+                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&auto=format&fit=crop" alt="Graphiques" loading="lazy">
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Features Section avec alternance -->
-    <section class="features" id="fonctionnalites">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Tout ce dont vous avez besoin pour réussir</h2>
-                <p>Arrêtez de gérer votre exploitation à l'aveugle ! Découvrez la différence avec GrowUp.</p>
-            </div>
-
-            <!-- Feature 1: Image à GAUCHE, texte à DROITE -->
-            <div class="feature-item fade-in">
-                <div class="feature-image left">
-                    <div class="image-badge">IA Agricole</div>
-                    <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"alt="Calendrier agricole intelligent" loading="lazy">
+<!-- ========== SERVICES (CAROUSEL) ========== -->
+<section class="services" id="services">
+    <div class="container">
+        <div class="section-title">
+            <h2>Comment nous vous accompagnons</h2>
+            <p>Au-delà de l'application, une véritable équipe à votre service.</p>
+        </div>
+        <div class="carousel-container">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&auto=format&fit=crop" alt="Surveillance">
+                    <h3>Surveillance continue</h3>
+                    <p>Nous veillons sur vos cultures 24h/24.</p>
                 </div>
-                <div class="feature-content right">
-                    <h3>Calendrier Agricole Intelligent</h3>
-                    <p>Ne ratez plus jamais les bonnes périodes. Notre IA analyse les données météo en temps réel pour vous indiquer précisément quand semer, irriguer, fertiliser et récolter.</p>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> Alertes personnalisées par culture</li>
-                        <li><i class="fas fa-check-circle"></i> Analyse météo en temps réel</li>
-                        <li><i class="fas fa-check-circle"></i> Recommandations adaptées à votre sol</li>
-                    </ul>
-                    <a href="#" class="cta-button">
-                        <i class="fas fa-play-circle"></i> Voir la démo
-                    </a>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1523741543316-32eb3f26e6ad?w=600&auto=format&fit=crop" alt="Prix">
+                    <h3>Meilleurs prix garantis</h3>
+                    <p>Optimisez vos achats d'intrants.</p>
                 </div>
-            </div>
-
-            <!-- Feature 2: Texte à GAUCHE, image à DROITE -->
-            <div class="feature-item fade-in">
-                <div class="feature-content left">
-                    <h3>Gestion Financière Précise</h3>
-                    <p>Enregistrez facilement toutes vos dépenses et ventes. GrowUp calcule automatiquement votre rentabilité par culture. Fini les surprises en fin de saison.</p>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> Suivi des dépenses et revenus</li>
-                        <li><i class="fas fa-check-circle"></i> Rentabilité par culture calculée</li>
-                        <li><i class="fas fa-check-circle"></i> Rapports financiers détaillés</li>
-                    </ul>
-                    <a href="#" class="cta-button">
-                        <i class="fas fa-chart-pie"></i> Explorer les analyses
-                    </a>
-                </div>
-                <div class="feature-image right">
-                    <div class="image-badge">Finance</div>
-                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2011&q=80" alt="Gestion financière agricole" loading="lazy">
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?w=600&auto=format&fit=crop" alt="Formation">
+                    <h3>Formation continue</h3>
+                    <p>Apprenez et progressez avec nos experts.</p>
                 </div>
             </div>
-
-            <!-- Feature 3: Image à GAUCHE, texte à DROITE -->
-            <div class="feature-item fade-in">
-                <div class="feature-image left">
-                    <div class="image-badge">Alertes</div>
-                    <img src="https://plus.unsplash.com/premium_photo-1682310096066-20c267e20605?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YWxlcnRlJTIwaW50ZWxsaWdlbnRlfGVufDB8fDB8fHww" alt="Alertes intelligentes" alt="Alertes intelligentes" loading="lazy">
-                </div>
-                <div class="feature-content right">
-                    <h3>Alertes Automatiques Intelligentes</h3>
-                    <p>Suivez vos stocks en temps réel. GrowUp vous alerte automatiquement quand vos stocks baissent et qu'une période de semis approche.</p>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> Surveillance des stocks 24/7</li>
-                        <li><i class="fas fa-check-circle"></i> Alertes de réapprovisionnement</li>
-                        <li><i class="fas fa-check-circle"></i> Notifications de maladies des plantes</li>
-                    </ul>
-                    <a href="#" class="cta-button">
-                        <i class="fas fa-bell"></i> Configurer les alertes
-                    </a>
-                </div>
-            </div>
-
-            <!-- Feature 4: Texte à GAUCHE, image à DROITE -->
-            <div class="feature-item fade-in">
-                <div class="feature-content left">
-                    <h3>Assistant IA 24h/24</h3>
-                    <p>Prenez une photo d'une plante malade et obtenez un diagnostic instantané. Posez n'importe quelle question agricole à notre assistant IA.</p>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> Diagnostic par photo</li>
-                        <li><i class="fas fa-check-circle"></i> Réponses instantanées</li>
-                        <li><i class="fas fa-check-circle"></i> Recommandations de traitements</li>
-                    </ul>
-                    <a href="#" class="cta-button">
-                        <i class="fas fa-robot"></i> Tester l'assistant IA
-                    </a>
-                </div>
-                <div class="feature-image right">
-                    <div class="image-badge">IA</div>
-                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Assistant IA agricole" loading="lazy">
-                </div>
+            <div class="carousel-dots">
+                <span class="carousel-dot active"></span>
+                <span class="carousel-dot"></span>
+                <span class="carousel-dot"></span>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Services Carousel -->
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Comment GrowUp vous accompagne ?</h2>
-                <p>Bien plus qu'une simple application. Votre équipe technique virtuelle qui travaille pour vous 24h/24.</p>
-            </div>
-
-            <div class="carousel-container fade-in">
-                <div class="carousel-track" id="carouselTrack">
-                    <div class="carousel-slide">
-                        <img src="assets/Images/Image collée (2).png" alt="Surveillance des cultures" loading="lazy">
-                        <h3>Nous surveillons vos cultures pendant que vous dormez</h3>
-                        <p>GrowUp surveille en permanence vos cultures et vos stocks. Soyez prévenus avant les problèmes.</p>
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="assets/Images/Image collée (5).png" alt="Optimisation des prix" loading="lazy">
-                        <h3>Meilleurs prix garantis</h3>
-                        <p>GrowUp compare tous les vendeurs et vous recommande le meilleur rapport qualité-prix pour vos intrants.</p>
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="assets/Images/Image collée (4).png" alt="Formation agricole" loading="lazy">
-                        <h3>Apprenez de nouvelles techniques</h3>
-                        <p>Accédez à des formations, apprenez de nouvelles techniques et connectez-vous avec des experts agricoles.</p>
-                    </div>
-                </div>
-                <div class="carousel-dots" id="carouselDots">
-                    <span class="carousel-dot active"></span>
-                    <span class="carousel-dot"></span>
-                    <span class="carousel-dot"></span>
-                </div>
-            </div>
+<!-- ========== TEMOIGNAGES ========== -->
+<section class="testimonials" id="temoignages">
+    <div class="container">
+        <div class="section-title">
+            <h2>Ils nous font confiance</h2>
+            <p>Des agriculteurs comme vous partagent leur expérience.</p>
         </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials" id="temoignages">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Ils ont transformé leur agriculture</h2>
-                <p>Découvrez les retours d'expérience d'agriculteurs qui utilisent GrowUp au quotidien.</p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <blockquote>"J'ai augmenté mon rendement de 45% la première année."</blockquote>
+                <div class="author">
+                    <div class="author-avatar">AD</div>
+                    <div class="author-info">
+                        <h4>Amadou Diallo</h4>
+                        <span>Riziculteur</span>
+                    </div>
+                </div>
             </div>
-
-            <div class="testimonials-grid">
-                <div class="testimonial-card fade-in">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <blockquote>
-                        "Avant GrowUp, je perdais au moins 30% de mes récoltes chaque année. Les alertes météo et le calendrier intelligent m'ont sauvé. Cette saison, j'ai augmenté mon rendement de 45%."
-                    </blockquote>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">AD</div>
-                        <div class="author-info">
-                            <h4>Amadou Diallo</h4>
-                            <span>Cultivateur de riz, 5 hectares • 8 mois d'utilisation</span>
-                        </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <blockquote>"Je maîtrise enfin mes coûts et ma rentabilité."</blockquote>
+                <div class="author">
+                    <div class="author-avatar">FK</div>
+                    <div class="author-info">
+                        <h4>Fatou Koné</h4>
+                        <span>Maraîchère</span>
                     </div>
                 </div>
-
-                <div class="testimonial-card fade-in">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <blockquote>
-                        "Je pensais que je gagnais de l'argent, mais GrowUp m'a montré la réalité. Maintenant je sais exactement où va chaque franc. J'ai réduit mes dépenses inutiles de 40%."
-                    </blockquote>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">FK</div>
-                        <div class="author-info">
-                            <h4>Fatou Koné</h4>
-                            <span>Maraîchère, 2 hectares • 6 mois d'utilisation</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card fade-in">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <blockquote>
-                        "Le marketplace a changé ma vie. Je vends directement aux chocolatiers sans intermédiaires. Mes marges ont triplé. L'IA m'aide aussi à trouver les meilleurs prix."
-                    </blockquote>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">KM</div>
-                        <div class="author-info">
-                            <h4>Kwame Mensah</h4>
-                            <span>Producteur de cacao, 8 hectares • 1 an d'utilisation</span>
-                        </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <blockquote>"Le suivi des maladies par photo est incroyable."</blockquote>
+                <div class="author">
+                    <div class="author-avatar">KM</div>
+                    <div class="author-info">
+                        <h4>Kwame Mensah</h4>
+                        <span>Producteur de cacao</span>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- CTA Section -->
-    <section class="cta-section" id="contact">
-        <div class="container">
-            <div class="cta-content fade-in">
-                <h2>Prêt à transformer votre agriculture ?</h2>
-                <p>Rejoignez les 10,000+ agriculteurs qui cultivent plus intelligemment avec GrowUp. Essayez gratuitement pendant 14 jours.</p>
-                <a href="#" class="cta-button secondary">
-                    <i class="fas fa-user-plus"></i> S'enregistrer gratuitement
-                </a>
+<!-- ========== CTA ========== -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Prêt à transformer votre agriculture ?</h2>
+        <p>Rejoignez des milliers d'agriculteurs. Essayez GrowUp gratuitement.</p>
+        <a href="#" class="cta-button secondary">Commencer</a>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="container footer-content">
+        <div class="footer-logo">
+            <img src="assets/Images/logo.png" alt="GrowUp" onerror="this.src='https://placehold.co/120x32?text=GrowUp'">
+            <p>L'agriculture de demain, simplifiée.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="assets/Images/logo.png" alt="GrowUp Logo" loading="lazy">
-                    <p>L'application mobile complète qui révolutionne la gestion agricole en Afrique et dans le monde.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Produit</h3>
-                    <ul class="footer-links">
-                        <li><a href="#fonctionnalites">Fonctionnalités</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#">Tarifs</a></li>
-                        <li><a href="#">Télécharger l'app</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Entreprise</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">À propos</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Carrières</a></li>
-                        <li><a href="#">Presse</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Centre d'aide</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">CGU</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2026 GrowUp. Tous droits réservés. | contact@growup-agri.com | +237 6 74 24 12 378</p>
-            </div>
+        <div class="footer-column">
+            <h3>Produit</h3>
+            <ul class="footer-links">
+                <li><a href="#">Fonctionnalités</a></li>
+                <li><a href="#">Tarifs</a></li>
+                <li><a href="#">Télécharger</a></li>
+            </ul>
         </div>
-    </footer>
+        <div class="footer-column">
+            <h3>Entreprise</h3>
+            <ul class="footer-links">
+                <li><a href="#">À propos</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Légal</h3>
+            <ul class="footer-links">
+                <li><a href="#">CGU</a></li>
+                <li><a href="#">Confidentialité</a></li>
+                <li><a href="#">Mentions légales</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container copyright">
+        <p>© 2026 GrowUp. Tous droits réservés. contact@growup-agri.com</p>
+    </div>
+</footer>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop" aria-label="Retour en haut">
-        <i class="fas fa-chevron-up"></i>
-    </button>
+<!-- ========== BACK TO TOP ========== -->
+<button class="back-to-top" id="backToTop" aria-label="Retour en haut"><i class="fas fa-chevron-up"></i></button>
 
-    <!-- JavaScript -->
-    <script src="assets/Js/script.js"></script>
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    (function() {
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+                menuToggle.innerHTML = mainNav.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+            document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => mainNav.classList.remove('active')));
+        }
+
+        // Simple carousel
+        const track = document.getElementById('carouselTrack');
+        const dots = document.querySelectorAll('.carousel-dot');
+        if (track && dots.length) {
+            let index = 0;
+            const update = (i) => { 
+                index = i; 
+                track.style.transform = `translateX(-${index * 100}%)`; 
+                dots.forEach((d, idx) => d.classList.toggle('active', idx === index)); 
+            };
+            dots.forEach((dot, i) => dot.addEventListener('click', () => update(i)));
+            setInterval(() => update((index + 1) % dots.length), 5000);
+        }
+
+        // Back to top
+        const backBtn = document.getElementById('backToTop');
+        if (backBtn) {
+            window.addEventListener('scroll', () => {
+                backBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+            });
+            backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        }
+
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                header.style.background = 'rgba(255,255,255,0.98)';
+            } else {
+                header.style.boxShadow = 'none';
+                header.style.background = 'rgba(255,255,255,0.95)';
+            }
+        });
+    })();
+</script>
+
 </body>
 </html>
