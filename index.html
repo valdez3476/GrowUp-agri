@@ -9,7 +9,7 @@
     <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -24,6 +24,7 @@
             --primary-light: #9ccc65;
             --accent: #2d8b2d;
             --accent-bright: #1a5f1a;
+            --accent-dark: #0d3b0d;
             --gray-50: #f8f9fa;
             --gray-100: #f2f2f2;
             --gray-200: #e6e6e6;
@@ -60,7 +61,7 @@
         }
 
         h1, h2, h3 {
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: -0.02em;
         }
         h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.2; }
@@ -208,26 +209,26 @@
             pointer-events: none;
         }
 
+        /* Texte qui change avec l'image - positionné en bas */
         .slide-caption {
             position: absolute;
-            bottom: 12%;
+            bottom: 18%;
             left: 5%;
-            max-width: 450px;
+            max-width: 500px;
             color: white;
             z-index: 2;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .slide-caption h3 {
-            color: white;
-            font-size: 2rem;
+            color: rgb(255, 255, 255);
+            font-size: 1.8rem;
             margin-bottom: 0.5rem;
         }
         .slide-caption p {
             font-size: 1rem;
-            opacity: 0.9;
         }
         @media (max-width: 768px) {
-            .slide-caption { bottom: 8%; left: 5%; max-width: 90%; }
+            .slide-caption { bottom: 5%; left: 5%; max-width: 90%; }
             .slide-caption h3 { font-size: 1.2rem; }
             .slide-caption p { font-size: 0.8rem; }
         }
@@ -254,11 +255,7 @@
         .hero-content h1 {
             color: white;
             margin-bottom: 1.5rem;
-        }
-        .hero-content p {
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
+            font-size: clamp(2.8rem, 6vw, 4rem);
         }
 
         .hero-images {
@@ -277,10 +274,11 @@
             border-radius: 24px;
             box-shadow: var(--shadow-xl);
             z-index: 3;
+            border:4px solid var(--accent-dark);
         }
         .hero-img-small {
             position: absolute;
-            bottom: -30px;
+            bottom: -40px;
             left: 0;
             width: 55%;
             height: 260px;
@@ -295,8 +293,8 @@
             .hero-container {
                 flex-direction: column;
                 text-align: center;
-                padding-top: 100px;
-                padding-bottom: 80px;
+                padding-top: 80px;
+                padding-bottom: 60px;
             }
             .hero-images {
                 min-height: 380px;
@@ -317,7 +315,7 @@
                 width: 55%;
                 height: 200px;
                 bottom: -20px;
-                left: 10%;
+                left: -1%;
             }
             .hero-content {
                 text-align: center;
@@ -377,9 +375,40 @@
             100% { box-shadow: 0 0 0 0 rgba(124,179,66,0); }
         }
 
+        /* CARTE FLOTTANTE ENTRE LES DEUX SECTIONS */
+        .floating-card {
+            position: relative;
+            z-index: 10;
+            max-width: 500px;
+            margin: -60px auto 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 2rem 2.5rem;
+            border-radius: 28px;
+            box-shadow: var(--shadow-xl);
+            text-align: center;
+            border: 1px solid rgba(124,179,66,0.2);
+        }
+        .floating-card p {
+            font-size: 1.2rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+        .floating-card .quote-icon {
+            font-size: 3rem;
+            color: var(--accent-bright);
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .floating-card {
+                margin: -40px 1rem 0 1rem;
+                padding: 1.5rem;
+            }
+            .floating-card p { font-size: 0.95rem; }
+        }
+
         /* INTRO TEXT */
         .intro-text {
-            padding-top: 100px;
+            padding-top: 80px;
             padding-bottom: var(--space-xl);
             background: var(--white);
             text-align: center;
@@ -389,7 +418,7 @@
         .intro-text h2 {
             font-size: clamp(2rem, 5vw, 3.5rem);
             color: var(--accent-bright);
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             font-weight: 700;
         }
@@ -436,7 +465,7 @@
             font-weight: 500;
         }
 
-        /* FEATURES - VERSION AVEC IMAGES SUPERPOSEES ET DEFORMEES */
+        /* FEATURES */
         .features {
             padding: var(--space-lg) 0;
             background: var(--white);
@@ -470,7 +499,6 @@
         }
         .feature-content i { color: var(--primary); width: 1.25rem; font-size: 1.1rem; }
 
-        /* Conteneur d'images superposées et déformées */
         .feature-image-stack {
             flex: 1;
             position: relative;
@@ -755,23 +783,23 @@
 <section class="hero" id="accueil">
     <div class="hero-slides">
         <div class="hero-slide active" id="slide1">
-            <img src="https://images.unsplash.com/photo-1574943320219-553eb213f5cd?w=1600&auto=format" alt="Agriculteur utilisant tablette" class="hero-slide-bg">
+            <img src="assets/Images/Image collée (10).png" alt="Agriculteur utilisant tablette" class="hero-slide-bg">
             <div class="slide-caption">
-                <h3>Agriculture Connectée</h3>
+                <h3>🌾 Agriculture Connectée</h3>
                 <p>Suivez vos cultures en temps réel depuis votre smartphone</p>
             </div>
         </div>
         <div class="hero-slide" id="slide2">
             <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=1600&auto=format" alt="Agriculteur au travail" class="hero-slide-bg">
             <div class="slide-caption">
-                <h3>Experts à vos côtés</h3>
+                <h3>👨‍🌾 Experts à vos côtés</h3>
                 <p>Des conseils personnalisés pour chaque étape de votre production</p>
             </div>
         </div>
         <div class="hero-slide" id="slide3">
             <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=1600&auto=format" alt="Application météo agricole" class="hero-slide-bg">
             <div class="slide-caption">
-                <h3>Prévisions Météo</h3>
+                <h3>⛅ Prévisions Météo</h3>
                 <p>Anticipez les aléas climatiques avec nos prévisions précises</p>
             </div>
         </div>
@@ -780,20 +808,26 @@
     <div class="hero-container">
         <div class="hero-content">
             <h1>L'agriculture intelligente commence ici</h1>
-            <p>Des solutions innovantes pour optimiser vos rendements et simplifier votre quotidien.</p>
             <a href="#" class="cta-button">Découvrir</a>
         </div>
+
         <div class="hero-images">
-            <img src="https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?w=600&auto=format" alt="Produits frais" class="hero-img-large">
-            <img src="assets/Images/Image collée (4).png" alt="Récolte" class="hero-img-small">
+            <img src="assets/Images/Image collée (8).png" alt="Produits frais" class="hero-img-large">
+            <img src="assets/Images/Image collée (6).png" alt="Récolte" class="hero-img-small">
         </div>
     </div>
 </section>
 
+<!-- CARTE FLOTTANTE ENTRE LA PREMIÈRE ET LA DEUXIÈME SECTION -->
+<div class="floating-card">
+    <div class="quote-icon"><i class="fas fa-leaf"></i></div>
+    <p>Des solutions innovantes pour optimiser vos rendements et simplifier votre quotidien. Rejoignez des milliers d'agriculteurs connectés.</p>
+</div>
+
 <section class="intro-text">
     <div class="container">
         <h2>BIENVENUE SUR GROWUP</h2>
-        <p>De petit agriculteur à entrepreneur agricole prospère. GrowUp transforme votre quotidien avec des solutions innovantes et accessibles.</p>
+        <p>Quitter de petit agriculteur à entrepreneur agricole prospère. GrowUp transforme votre quotidien avec des solutions innovantes et accessibles.</p>
     </div>
 </section>
 
@@ -813,7 +847,6 @@
             <p>Simplifiez votre quotidien avec des fonctionnalités pensées pour le terrain.</p>
         </div>
 
-        <!-- Feature 1 : Calendrier intelligent avec images superposées -->
         <div class="feature-item">
             <div class="feature-content">
                 <h3>Calendrier agricole intelligent</h3>
@@ -827,12 +860,11 @@
                 <a href="#" class="cta-button">En savoir plus</a>
             </div>
             <div class="feature-image-stack">
-                <img src="assets/Images/Image collée (2).png" alt="Application météo" class="feature-img-back">
-                <img src="assets/Images/Image collée.png" alt="Agriculteur" class="feature-img-front">
+                <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=600&auto=format" alt="Application météo" class="feature-img-back">
+                <img src="https://images.unsplash.com/photo-1574943320219-553eb213f5cd?w=600&auto=format" alt="Agriculteur" class="feature-img-front">
             </div>
         </div>
 
-        <!-- Feature 2 : Gestion financière avec images superposées -->
         <div class="feature-item">
             <div class="feature-content">
                 <h3>Gestion financière simplifiée</h3>
@@ -847,7 +879,7 @@
             </div>
             <div class="feature-image-stack">
                 <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&auto=format" alt="Graphiques financiers" class="feature-img-back">
-                <img src="https://images.unsplash.com/photo-1574943320219-553eb213f5cd?w=600&auto=format" alt="Agriculteur avec tablette" class="feature-img-front">
+                <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=600&auto=format" alt="Agriculteur avec tablette" class="feature-img-front">
             </div>
         </div>
     </div>
@@ -894,7 +926,7 @@
 
 <footer>
     <div class="container footer-content">
-        <div class="footer-logo"><img src="https://placehold.co/120x40/7cb342/white?text=GrowUp" alt="GrowUp"><p>L'agriculture de demain, simplifiée.</p><div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+        <div class="footer-logo"><img src="assets/Images/logo.png" alt="GrowUp"><p>L'agriculture de demain, simplifiée.</p><div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
         <div class="footer-column"><h3>Produit</h3><ul class="footer-links"><li><a href="#">Fonctionnalités</a></li><li><a href="#">Tarifs</a></li><li><a href="#">Télécharger</a></li></ul></div>
         <div class="footer-column"><h3>Entreprise</h3><ul class="footer-links"><li><a href="#">À propos</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
         <div class="footer-column"><h3>Légal</h3><ul class="footer-links"><li><a href="#">CGU</a></li><li><a href="#">Confidentialité</a></li><li><a href="#">Mentions légales</a></li></ul></div>
@@ -917,7 +949,7 @@
             document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => mainNav.classList.remove('active')));
         }
 
-        // Slides d'arrière-plan
+        // Slides d'arrière-plan avec texte qui change
         const slides = document.querySelectorAll('.hero-slide');
         if (slides.length > 1) {
             let currentIndex = 0;
@@ -925,7 +957,7 @@
                 slides[currentIndex].classList.remove('active');
                 currentIndex = (currentIndex + 1) % slides.length;
                 slides[currentIndex].classList.add('active');
-            }, 8000);
+            }, 6000);
         }
 
         // Carrousel
@@ -976,3 +1008,4 @@
 
 </body>
 </html>
+```
