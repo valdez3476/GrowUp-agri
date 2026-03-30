@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>GrowUp - L'agriculture intelligente</title>
     <meta name="description" content="Simplifiez la gestion de votre exploitation agricole avec GrowUp.">
 
@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ========== RESET & VARIABLES ========== */
         * {
             margin: 0;
             padding: 0;
@@ -43,6 +42,7 @@
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
             --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05);
             --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 35px -12px rgba(0,0,0,0.2);
         }
 
         body {
@@ -75,9 +75,10 @@
             margin-left: auto;
             margin-right: auto;
             color: var(--gray-600);
+            max-width: 600px;
         }
 
-        /* ========== HEADER ========== */
+        /* HEADER */
         header {
             position: fixed;
             top: 0;
@@ -87,6 +88,7 @@
             border-bottom: 1px solid var(--gray-200);
             z-index: 100;
             padding: 0.75rem 0;
+            transition: all 0.3s ease;
         }
 
         .header-content {
@@ -97,7 +99,7 @@
 
         .logo img {
             height: 40px;
-            width: 120px;
+            width: auto;
         }
 
         nav ul {
@@ -151,7 +153,7 @@
             nav ul { flex-direction: column; gap: var(--space-sm); }
         }
 
-        /* ========== HERO AVEC IMAGE EN PLEIN ÉCRAN ========== */
+        /* HERO SECTION */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -161,18 +163,39 @@
             align-items: center;
         }
 
-        /* Image de fond qui occupe tout l'espace */
-        .hero-background-image {
+        .hero-slides {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
             z-index: 0;
         }
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            overflow: hidden;
+        }
+        .hero-slide.active {
+            opacity: 1;
+        }
+        .hero-slide-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: zoomEffect 12s ease-in-out infinite;
+        }
+        @keyframes zoomEffect {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
 
-        /* Overlay sombre pour améliorer la lisibilité du texte */
         .hero::before {
             content: '';
             position: absolute;
@@ -180,23 +203,33 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 100%);
+            background: linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 100%);
             z-index: 1;
             pointer-events: none;
         }
 
-        /* Points verts décoratifs */
-        .hero::after {
-            content: '';
+        .slide-caption {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(rgba(124, 179, 66, 0.25) 2px, transparent 2px);
-            background-size: 50px 50px;
-            z-index: 1;
-            pointer-events: none;
+            bottom: 12%;
+            left: 5%;
+            max-width: 450px;
+            color: white;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .slide-caption h3 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .slide-caption p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        @media (max-width: 768px) {
+            .slide-caption { bottom: 8%; left: 5%; max-width: 90%; }
+            .slide-caption h3 { font-size: 1.2rem; }
+            .slide-caption p { font-size: 0.8rem; }
         }
 
         .hero-container {
@@ -206,44 +239,103 @@
             padding: 0 var(--container-padding);
             width: 100%;
             z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            flex-wrap: wrap;
         }
 
-        /* Carte positionnée à la jonction entre hero et section suivante */
-        .hero-card {
-            position: absolute;
-            bottom: -80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 650px;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(12px);
-            padding: 2.5rem 2rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            text-align: center;
-            z-index: 10;
-            transition: transform 0.3s ease;
+        .hero-content {
+            flex: 1;
+            color: white;
+            min-width: 280px;
         }
-
-        .hero-card:hover {
-            transform: translateX(-50%) translateY(-5px);
-        }
-
-        .hero-card h1 {
-            color: var(--accent-bright);
-            margin-bottom: var(--space-sm);
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-        }
-
-        .hero-card p {
-            color: var(--gray-600);
+        .hero-content h1 {
+            color: white;
             margin-bottom: 1.5rem;
-            font-size: 1rem;
+        }
+        .hero-content p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
         }
 
-        /* Bouton avec effet d'onde */
+        .hero-images {
+            flex: 1;
+            position: relative;
+            min-height: 450px;
+            min-width: 280px;
+        }
+        .hero-img-large {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 85%;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 24px;
+            box-shadow: var(--shadow-xl);
+            z-index: 3;
+        }
+        .hero-img-small {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            width: 55%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+            z-index: 4;
+            border: 4px solid white;
+        }
+
+        @media (max-width: 968px) {
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+                padding-bottom: 80px;
+            }
+            .hero-images {
+                min-height: 380px;
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            .hero-img-large {
+                position: relative;
+                width: 80%;
+                height: 300px;
+                margin: 0 auto;
+                right: auto;
+                display: block;
+            }
+            .hero-img-small {
+                position: absolute;
+                width: 55%;
+                height: 200px;
+                bottom: -20px;
+                left: 10%;
+            }
+            .hero-content {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-images { min-height: 320px; }
+            .hero-img-large { height: 250px; }
+            .hero-img-small { height: 170px; width: 60%; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-images { min-height: 280px; }
+            .hero-img-large { height: 200px; }
+            .hero-img-small { height: 140px; bottom: -15px; }
+        }
+
         .cta-button {
             position: relative;
             background: var(--primary);
@@ -258,8 +350,8 @@
             cursor: pointer;
             overflow: hidden;
             z-index: 1;
+            animation: pulse-wave 2s infinite;
         }
-
         .cta-button::before {
             content: '';
             position: absolute;
@@ -268,34 +360,24 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255,255,255,0.3);
             transform: translate(-50%, -50%);
             transition: width 0.6s ease, height 0.6s ease;
             z-index: -1;
         }
-
-        .cta-button:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
+        .cta-button:hover::before { width: 300px; height: 300px; }
         .cta-button:hover {
             background: var(--accent-bright);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(124, 179, 66, 0.4);
+            box-shadow: 0 6px 20px rgba(124,179,66,0.4);
         }
-
         @keyframes pulse-wave {
-            0% { box-shadow: 0 0 0 0 rgba(124, 179, 66, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(124, 179, 66, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(124, 179, 66, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(124,179,66,0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(124,179,66,0); }
+            100% { box-shadow: 0 0 0 0 rgba(124,179,66,0); }
         }
 
-        .cta-button {
-            animation: pulse-wave 2s infinite;
-        }
-
-        /* ========== SECTION TEXTE CENTRÉ - avec marge pour accueillir la carte ========== */
+        /* INTRO TEXT */
         .intro-text {
             padding-top: 100px;
             padding-bottom: var(--space-xl);
@@ -304,16 +386,13 @@
             position: relative;
             z-index: 5;
         }
-
         .intro-text h2 {
             font-size: clamp(2rem, 5vw, 3.5rem);
             color: var(--accent-bright);
             max-width: 800px;
             margin: 0 auto;
-            line-height: 1.3;
             font-weight: 700;
         }
-        
         .intro-text p {
             font-size: 1.2rem;
             color: var(--gray-600);
@@ -321,12 +400,11 @@
             margin: 1rem auto 0;
         }
 
-        /* ========== STATS ========== */
+        /* STATS */
         .stats {
             padding: var(--space-lg) 0;
             background: var(--gray-50);
         }
-
         .stats-grid {
             display: flex;
             justify-content: space-around;
@@ -334,7 +412,15 @@
             gap: var(--space-md);
             text-align: center;
         }
-
+        .stat-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .stat-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
         .stat-item h3 {
             font-size: 3.5rem;
             font-weight: 700;
@@ -350,21 +436,27 @@
             font-weight: 500;
         }
 
-        /* ========== FEATURES ========== */
+        /* FEATURES - VERSION AVEC IMAGES SUPERPOSEES ET DEFORMEES */
         .features {
             padding: var(--space-lg) 0;
             background: var(--white);
         }
-
         .feature-item {
             display: flex;
             align-items: center;
             gap: var(--space-lg);
-            margin-bottom: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .feature-item.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         .feature-item:nth-child(even) { flex-direction: row-reverse; }
         .feature-content { flex: 1; }
-        .feature-content p { color: var(--gray-600); }
+        .feature-content p { color: var(--gray-600); margin-bottom: 1rem; }
         .feature-content ul {
             list-style: none;
             margin: var(--space-md) 0;
@@ -376,70 +468,80 @@
             gap: 0.75rem;
             color: var(--gray-800);
         }
-        .feature-content i { color: var(--primary); width: 1.25rem; }
-        .feature-image { flex: 1; position: relative; }
-        .feature-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 1rem;
-            box-shadow: var(--shadow-md);
+        .feature-content i { color: var(--primary); width: 1.25rem; font-size: 1.1rem; }
+
+        /* Conteneur d'images superposées et déformées */
+        .feature-image-stack {
+            flex: 1;
+            position: relative;
+            min-height: 400px;
+            perspective: 800px;
         }
-        .image-badge {
+        .feature-img-back {
             position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 1rem;
+            top: 0;
+            right: 0;
+            width: 80%;
+            height: 320px;
+            object-fit: cover;
             border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            transform: rotateY(-8deg) rotateX(3deg);
+            transition: transform 0.4s ease;
+            z-index: 2;
+        }
+        .feature-img-front {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            width: 60%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: var(--shadow-xl);
+            border: 4px solid white;
+            transform: rotateY(6deg) rotateX(-2deg);
+            transition: transform 0.4s ease;
+            z-index: 3;
+        }
+        .feature-item:hover .feature-img-back {
+            transform: rotateY(-5deg) rotateX(2deg) translateX(-5px);
+        }
+        .feature-item:hover .feature-img-front {
+            transform: rotateY(4deg) rotateX(-1deg) translateX(5px);
         }
 
         @media (max-width: 968px) {
-            .hero-card {
-                bottom: -60px;
-                width: 95%;
-                padding: 1.5rem;
-            }
-            .intro-text {
-                padding-top: 80px;
-            }
+            .feature-item, .feature-item:nth-child(even) { flex-direction: column; text-align: center; }
+            .feature-image-stack { min-height: 350px; width: 100%; max-width: 500px; margin: 0 auto; }
+            .feature-img-back { width: 75%; height: 280px; position: relative; margin: 0 auto; display: block; right: auto; top: 0; transform: none; }
+            .feature-img-front { position: relative; bottom: 40px; left: auto; margin: 0 auto; width: 55%; height: 200px; transform: none; }
+            .feature-item:hover .feature-img-back,
+            .feature-item:hover .feature-img-front { transform: none; }
+            .feature-content ul { display: inline-block; text-align: left; }
         }
 
         @media (max-width: 768px) {
-            .feature-item, .feature-item:nth-child(even) { flex-direction: column; }
-            .hero-card {
-                bottom: -40px;
-                padding: 1.2rem;
-            }
-            .hero-card h1 { font-size: 1.5rem; }
-            .intro-text {
-                padding-top: 60px;
-            }
-            .intro-text h2 { font-size: 2rem; }
-            .intro-text p { font-size: 1rem; }
-            .stat-item h3 { font-size: 2.5rem; }
+            .feature-image-stack { min-height: 300px; }
+            .feature-img-back { height: 220px; }
+            .feature-img-front { height: 160px; bottom: 30px; }
         }
 
-        /* ========== SERVICES (CAROUSEL) ========== */
+        /* SERVICES CAROUSEL */
         .services {
             padding: var(--space-lg) 0;
             background: var(--gray-50);
         }
-
         .carousel-container {
             max-width: 800px;
             margin: 0 auto;
             overflow: hidden;
             border-radius: 1rem;
         }
-
         .carousel-track {
             display: flex;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
-
         .carousel-slide {
             min-width: 100%;
             padding: var(--space-md);
@@ -447,17 +549,13 @@
             background: var(--white);
             border-radius: 1rem;
         }
-
         .carousel-slide img {
             width: 100%;
-            max-height: 300px;
+            max-height: 280px;
             object-fit: cover;
             border-radius: 0.75rem;
             margin-bottom: var(--space-sm);
         }
-
-        .carousel-slide p { color: var(--gray-600); }
-
         .carousel-dots {
             display: flex;
             justify-content: center;
@@ -477,37 +575,40 @@
             transform: scale(1.2);
         }
 
-        /* ========== TEMOIGNAGES ========== */
+        /* TEMOIGNAGES */
         .testimonials {
             padding: var(--space-lg) 0;
             background: var(--white);
         }
-
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: var(--space-md);
         }
-
         .testimonial-card {
             background: var(--white);
             padding: var(--space-md);
             border-radius: 1rem;
             border: 1px solid var(--gray-200);
             transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .testimonial-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         .testimonial-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-lg);
         }
-
         .stars { color: #ffc107; margin-bottom: var(--space-sm); font-size: 1.1rem; }
         blockquote {
             color: var(--gray-800);
             margin-bottom: var(--space-md);
             font-style: italic;
         }
-
         .author {
             display: flex;
             align-items: center;
@@ -525,45 +626,40 @@
             font-weight: 600;
             font-size: 1.2rem;
         }
-        .author-info h4 { font-size: 1rem; margin-bottom: 0.2rem; color: var(--gray-900); }
-        .author-info span { font-size: 0.85rem; color: var(--gray-600); }
 
-        /* ========== CTA ========== */
+        /* CTA */
         .cta-section {
             padding: var(--space-lg) 0;
-            background: var(--accent-bright);
+            background: linear-gradient(135deg, var(--accent-bright), var(--primary));
             color: white;
             text-align: center;
         }
         .cta-section h2, .cta-section p { color: white; }
-        .cta-section p { margin: var(--space-sm) auto var(--space-md); }
         .cta-button.secondary {
             background: white;
             color: var(--accent-bright);
+            animation: none;
         }
         .cta-button.secondary:hover { background: var(--gray-100); transform: translateY(-2px); }
 
-        /* ========== FOOTER ========== */
+        /* FOOTER */
         footer {
             background: var(--gray-900);
             color: var(--gray-300);
             padding: var(--space-lg) 0;
         }
-
         .footer-content {
             display: grid;
             grid-template-columns: 2fr repeat(3, 1fr);
             gap: var(--space-lg);
             margin-bottom: var(--space-lg);
         }
-
         .footer-logo img {
-            height: 50px;
+            height: 45px;
             margin-bottom: var(--space-sm);
             filter: brightness(0) invert(1);
         }
         .footer-logo p { color: var(--gray-400); margin-bottom: var(--space-sm); }
-
         .social-links {
             display: flex;
             gap: var(--space-sm);
@@ -572,15 +668,20 @@
             color: var(--gray-300);
             font-size: 1.2rem;
             transition: color 0.2s;
+            background: rgba(255,255,255,0.05);
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
-        .social-links a:hover { color: white; }
-
+        .social-links a:hover { color: white; background: var(--primary); }
         .footer-column h3 {
             color: white;
             margin-bottom: var(--space-sm);
             font-size: 1rem;
         }
-
         .footer-links { list-style: none; }
         .footer-links li { margin-bottom: 0.5rem; }
         .footer-links a {
@@ -590,23 +691,21 @@
             transition: color 0.2s;
         }
         .footer-links a:hover { color: white; }
-
         .copyright {
             text-align: center;
             padding-top: var(--space-md);
             border-top: 1px solid var(--gray-700);
             font-size: 0.85rem;
         }
-
         @media (max-width: 768px) {
             .footer-content {
                 grid-template-columns: 1fr;
                 text-align: center;
+                gap: 2rem;
             }
             .social-links { justify-content: center; }
         }
 
-        /* ========== BACK TO TOP ========== */
         .back-to-top {
             position: fixed;
             bottom: 2rem;
@@ -622,7 +721,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
             transition: all 0.3s;
             z-index: 99;
         }
@@ -634,17 +733,14 @@
 </head>
 <body>
 
-<!-- ========== HEADER ========== -->
 <header>
     <div class="container header-content">
         <a href="#" class="logo">
-            <img src="assets/Images/logo.png" alt="GrowUp" onerror="this.src='https://placehold.co/120x32?text=GrowUp'">
+            <img src="assets/Images/logo.png" alt="GrowUp">
         </a>
-        
         <button class="menu-toggle" id="menuToggle">
             <i class="fas fa-bars"></i>
         </button>
-
         <nav id="mainNav">
             <ul>
                 <li><a href="#accueil">Accueil</a></li>
@@ -656,22 +752,44 @@
     </div>
 </header>
 
-<!-- ========== HERO AVEC IMAGE EN PLEIN ÉCRAN ========== -->
 <section class="hero" id="accueil">
-    <!-- Image de fond qui occupe tout l'espace -->
-    <img src="assets/Images/image_hero.png" alt="Agriculture moderne" class="hero-background-image" onerror="this.src='https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&auto=format'">
-    
+    <div class="hero-slides">
+        <div class="hero-slide active" id="slide1">
+            <img src="https://images.unsplash.com/photo-1574943320219-553eb213f5cd?w=1600&auto=format" alt="Agriculteur utilisant tablette" class="hero-slide-bg">
+            <div class="slide-caption">
+                <h3>Agriculture Connectée</h3>
+                <p>Suivez vos cultures en temps réel depuis votre smartphone</p>
+            </div>
+        </div>
+        <div class="hero-slide" id="slide2">
+            <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=1600&auto=format" alt="Agriculteur au travail" class="hero-slide-bg">
+            <div class="slide-caption">
+                <h3>Experts à vos côtés</h3>
+                <p>Des conseils personnalisés pour chaque étape de votre production</p>
+            </div>
+        </div>
+        <div class="hero-slide" id="slide3">
+            <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=1600&auto=format" alt="Application météo agricole" class="hero-slide-bg">
+            <div class="slide-caption">
+                <h3>Prévisions Météo</h3>
+                <p>Anticipez les aléas climatiques avec nos prévisions précises</p>
+            </div>
+        </div>
+    </div>
+
     <div class="hero-container">
-        <!-- Carte positionnée à la jonction entre hero et section suivante -->
-        <div class="hero-card">
+        <div class="hero-content">
             <h1>L'agriculture intelligente commence ici</h1>
             <p>Des solutions innovantes pour optimiser vos rendements et simplifier votre quotidien.</p>
             <a href="#" class="cta-button">Découvrir</a>
         </div>
+        <div class="hero-images">
+            <img src="https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?w=600&auto=format" alt="Produits frais" class="hero-img-large">
+            <img src="assets/Images/Image collée (4).png" alt="Récolte" class="hero-img-small">
+        </div>
     </div>
 </section>
 
-<!-- ========== SECTION TEXTE CENTRÉ (juste après la carte) ========== -->
 <section class="intro-text">
     <div class="container">
         <h2>BIENVENUE SUR GROWUP</h2>
@@ -679,29 +797,15 @@
     </div>
 </section>
 
-<!-- ========== STATS ========== -->
 <section class="stats">
     <div class="container stats-grid">
-        <div class="stat-item">
-            <h3>+40%</h3>
-            <p>Rendement moyen</p>
-        </div>
-        <div class="stat-item">
-            <h3>30 min</h3>
-            <p>Temps de gestion/jour</p>
-        </div>
-        <div class="stat-item">
-            <h3>24/7</h3>
-            <p>Surveillance</p>
-        </div>
-        <div class="stat-item">
-            <h3>x2</h3>
-            <p>Marge bénéficiaire</p>
-        </div>
+        <div class="stat-item"><h3>+40%</h3><p>Rendement moyen</p></div>
+        <div class="stat-item"><h3>30 min</h3><p>Temps de gestion/jour</p></div>
+        <div class="stat-item"><h3>24/7</h3><p>Surveillance</p></div>
+        <div class="stat-item"><h3>x2</h3><p>Marge bénéficiaire</p></div>
     </div>
 </section>
 
-<!-- ========== FEATURES ========== -->
 <section class="features" id="fonctionnalites">
     <div class="container">
         <div class="section-title">
@@ -709,43 +813,46 @@
             <p>Simplifiez votre quotidien avec des fonctionnalités pensées pour le terrain.</p>
         </div>
 
+        <!-- Feature 1 : Calendrier intelligent avec images superposées -->
         <div class="feature-item">
             <div class="feature-content">
-                <h3>Calendrier intelligent</h3>
-                <p>Sachez précisément quand semer, irriguer ou récolter grâce aux données météo et agronomiques.</p>
+                <h3>Calendrier agricole intelligent</h3>
+                <p>Sachez précisément quand semer, irriguer ou récolter grâce aux données météo et agronomiques en temps réel.</p>
                 <ul>
                     <li><i class="fas fa-check-circle"></i> Alertes personnalisées</li>
                     <li><i class="fas fa-check-circle"></i> Analyse en temps réel</li>
-                    <li><i class="fas fa-check-circle"></i> Conseils experts</li>
+                    <li><i class="fas fa-check-circle"></i> Conseils d'experts</li>
+                    <li><i class="fas fa-check-circle"></i> Prévisions météo locales</li>
                 </ul>
                 <a href="#" class="cta-button">En savoir plus</a>
             </div>
-            <div class="feature-image">
-                <span class="image-badge">IA</span>
-                <img src="https://media.istockphoto.com/id/859642934/fr/photo/main-marquant-une-journ%C3%A9e-unique-avec-une-coche-verte-apr%C3%A8s-les-mauvais-jours-severeal.webp?a=1&b=1&s=612x612&w=0&k=20&c=WTk627trv4ZBsXT-X6QLTmRWfziYpddWgwjU0w5ZUxI=" alt="Calendrier" loading="lazy">
+            <div class="feature-image-stack">
+                <img src="assets/Images/Image collée (2).png" alt="Application météo" class="feature-img-back">
+                <img src="assets/Images/Image collée.png" alt="Agriculteur" class="feature-img-front">
             </div>
         </div>
 
+        <!-- Feature 2 : Gestion financière avec images superposées -->
         <div class="feature-item">
             <div class="feature-content">
-                <h3>Gestion financière</h3>
-                <p>Suivez vos dépenses et ventes, calculez votre rentabilité par culture et prenez les bonnes décisions.</p>
+                <h3>Gestion financière simplifiée</h3>
+                <p>Suivez vos dépenses et ventes, calculez votre rentabilité par culture et prenez les meilleures décisions.</p>
                 <ul>
-                    <li><i class="fas fa-check-circle"></i> Comptabilité simplifiée</li>
+                    <li><i class="fas fa-check-circle"></i> Comptabilité automatisée</li>
                     <li><i class="fas fa-check-circle"></i> Rapports détaillés</li>
                     <li><i class="fas fa-check-circle"></i> Prévisions budgétaires</li>
+                    <li><i class="fas fa-check-circle"></i> Analyses de rentabilité</li>
                 </ul>
                 <a href="#" class="cta-button">Explorer</a>
             </div>
-            <div class="feature-image">
-                <span class="image-badge">Finance</span>
-                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&auto=format&fit=crop" alt="Graphiques" loading="lazy">
+            <div class="feature-image-stack">
+                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&auto=format" alt="Graphiques financiers" class="feature-img-back">
+                <img src="https://images.unsplash.com/photo-1574943320219-553eb213f5cd?w=600&auto=format" alt="Agriculteur avec tablette" class="feature-img-front">
             </div>
         </div>
     </div>
 </section>
 
-<!-- ========== SERVICES (CAROUSEL) ========== -->
 <section class="services" id="services">
     <div class="container">
         <div class="section-title">
@@ -754,32 +861,15 @@
         </div>
         <div class="carousel-container">
             <div class="carousel-track" id="carouselTrack">
-                <div class="carousel-slide">
-                    <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&auto=format&fit=crop" alt="Surveillance">
-                    <h3>Surveillance continue</h3>
-                    <p>Nous veillons sur vos cultures 24h/24.</p>
-                </div>
-                <div class="carousel-slide">
-                    <img src="https://images.unsplash.com/photo-1523741543316-32eb3f26e6ad?w=600&auto=format&fit=crop" alt="Prix">
-                    <h3>Meilleurs prix garantis</h3>
-                    <p>Optimisez vos achats d'intrants.</p>
-                </div>
-                <div class="carousel-slide">
-                    <img src="https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?w=600&auto=format&fit=crop" alt="Formation">
-                    <h3>Formation continue</h3>
-                    <p>Apprenez et progressez avec nos experts.</p>
-                </div>
+                <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&auto=format" alt="Surveillance"><h3>Surveillance continue</h3><p>Nous veillons sur vos cultures 24h/24.</p></div>
+                <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1523741543316-32eb3f26e6ad?w=600&auto=format" alt="Prix"><h3>Meilleurs prix garantis</h3><p>Optimisez vos achats d'intrants.</p></div>
+                <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?w=600&auto=format" alt="Formation"><h3>Formation continue</h3><p>Apprenez et progressez avec nos experts.</p></div>
             </div>
-            <div class="carousel-dots">
-                <span class="carousel-dot active"></span>
-                <span class="carousel-dot"></span>
-                <span class="carousel-dot"></span>
-            </div>
+            <div class="carousel-dots"><span class="carousel-dot active"></span><span class="carousel-dot"></span><span class="carousel-dot"></span></div>
         </div>
     </div>
 </section>
 
-<!-- ========== TEMOIGNAGES ========== -->
 <section class="testimonials" id="temoignages">
     <div class="container">
         <div class="section-title">
@@ -787,44 +877,13 @@
             <p>Des agriculteurs comme vous partagent leur expérience.</p>
         </div>
         <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <blockquote>"J'ai augmenté mon rendement de 45% la première année."</blockquote>
-                <div class="author">
-                    <div class="author-avatar">AD</div>
-                    <div class="author-info">
-                        <h4>Amadou Diallo</h4>
-                        <span>Riziculteur</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <blockquote>"Je maîtrise enfin mes coûts et ma rentabilité."</blockquote>
-                <div class="author">
-                    <div class="author-avatar">FK</div>
-                    <div class="author-info">
-                        <h4>Fatou Koné</h4>
-                        <span>Maraîchère</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <blockquote>"Le suivi des maladies par photo est incroyable."</blockquote>
-                <div class="author">
-                    <div class="author-avatar">KM</div>
-                    <div class="author-info">
-                        <h4>Kwame Mensah</h4>
-                        <span>Producteur de cacao</span>
-                    </div>
-                </div>
-            </div>
+            <div class="testimonial-card"><div class="stars">★★★★★</div><blockquote>"J'ai augmenté mon rendement de 45% la première année. L'application est incroyablement intuitive."</blockquote><div class="author"><div class="author-avatar">AD</div><div class="author-info"><h4>Amadou Diallo</h4><span>Riziculteur</span></div></div></div>
+            <div class="testimonial-card"><div class="stars">★★★★★</div><blockquote>"Je maîtrise enfin mes coûts et ma rentabilité. Les prévisions météo m'ont sauvé plusieurs récoltes."</blockquote><div class="author"><div class="author-avatar">FK</div><div class="author-info"><h4>Fatou Koné</h4><span>Maraîchère</span></div></div></div>
+            <div class="testimonial-card"><div class="stars">★★★★★</div><blockquote>"Le suivi des maladies par photo est incroyable. Un gain de temps énorme au quotidien."</blockquote><div class="author"><div class="author-avatar">KM</div><div class="author-info"><h4>Kwame Mensah</h4><span>Producteur</span></div></div></div>
         </div>
     </div>
 </section>
 
-<!-- ========== CTA ========== -->
 <section class="cta-section">
     <div class="container">
         <h2>Prêt à transformer votre agriculture ?</h2>
@@ -833,55 +892,21 @@
     </div>
 </section>
 
-<!-- ========== FOOTER ========== -->
 <footer>
     <div class="container footer-content">
-        <div class="footer-logo">
-            <img src="assets/Images/logo.png" alt="GrowUp" onerror="this.src='https://placehold.co/120x32?text=GrowUp'">
-            <p>L'agriculture de demain, simplifiée.</p>
-            <div class="social-links">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-        </div>
-        <div class="footer-column">
-            <h3>Produit</h3>
-            <ul class="footer-links">
-                <li><a href="#">Fonctionnalités</a></li>
-                <li><a href="#">Tarifs</a></li>
-                <li><a href="#">Télécharger</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3>Entreprise</h3>
-            <ul class="footer-links">
-                <li><a href="#">À propos</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3>Légal</h3>
-            <ul class="footer-links">
-                <li><a href="#">CGU</a></li>
-                <li><a href="#">Confidentialité</a></li>
-                <li><a href="#">Mentions légales</a></li>
-            </ul>
-        </div>
+        <div class="footer-logo"><img src="https://placehold.co/120x40/7cb342/white?text=GrowUp" alt="GrowUp"><p>L'agriculture de demain, simplifiée.</p><div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
+        <div class="footer-column"><h3>Produit</h3><ul class="footer-links"><li><a href="#">Fonctionnalités</a></li><li><a href="#">Tarifs</a></li><li><a href="#">Télécharger</a></li></ul></div>
+        <div class="footer-column"><h3>Entreprise</h3><ul class="footer-links"><li><a href="#">À propos</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
+        <div class="footer-column"><h3>Légal</h3><ul class="footer-links"><li><a href="#">CGU</a></li><li><a href="#">Confidentialité</a></li><li><a href="#">Mentions légales</a></li></ul></div>
     </div>
-    <div class="container copyright">
-        <p>© 2026 GrowUp. Tous droits réservés. contact@growup-agri.com</p>
-    </div>
+    <div class="container copyright"><p>© 2026 GrowUp. Tous droits réservés. contact@growup-agri.com</p></div>
 </footer>
 
-<!-- ========== BACK TO TOP ========== -->
-<button class="back-to-top" id="backToTop" aria-label="Retour en haut"><i class="fas fa-chevron-up"></i></button>
+<button class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></button>
 
-<!-- ========== JAVASCRIPT ========== -->
 <script>
     (function() {
-        // Mobile menu toggle
+        // Menu mobile
         const menuToggle = document.getElementById('menuToggle');
         const mainNav = document.getElementById('mainNav');
         if (menuToggle && mainNav) {
@@ -892,7 +917,18 @@
             document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => mainNav.classList.remove('active')));
         }
 
-        // Simple carousel
+        // Slides d'arrière-plan
+        const slides = document.querySelectorAll('.hero-slide');
+        if (slides.length > 1) {
+            let currentIndex = 0;
+            setInterval(() => {
+                slides[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % slides.length;
+                slides[currentIndex].classList.add('active');
+            }, 8000);
+        }
+
+        // Carrousel
         const track = document.getElementById('carouselTrack');
         const dots = document.querySelectorAll('.carousel-dot');
         if (track && dots.length) {
@@ -914,6 +950,15 @@
             });
             backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         }
+
+        // Animations au scroll
+        const animatedElements = document.querySelectorAll('.stat-item, .feature-item, .testimonial-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.2 });
+        animatedElements.forEach(el => observer.observe(el));
 
         // Header scroll effect
         const header = document.querySelector('header');
